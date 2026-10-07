@@ -1,0 +1,51 @@
+<section class="n-hero n-hero-routine">
+  <div class="n-hero-inner b-wrap">
+    <div class="n-hero-copy">
+      <p class="b-eyebrow">{{ 'numan.custom_bundles' | t }}</p>
+      <h1>{{ section.settings.heading | escape }}<span>{{ section.settings.second_line | escape }}</span></h1>
+      <p class="n-hero-intro">{{ 'numan.hero_note' | t }}</p>
+      <div class="b-actions"><a class="b-button b-pear" href="{{ pages['skin-quiz'].url }}">{{ 'numan.take_quiz' | t }} <span aria-hidden="true">↗</span></a><a class="b-text-link" href="{{ pages['bundle-builder'].url }}">{{ 'numan.start_bundle' | t }}</a></div>
+      <p class="n-brand-note">{{ 'numan.multi_brand' | t }}</p><ol class="n-journey"><li><a href="{{ pages['skin-quiz'].url }}"><strong>{{ 'numan.quiz_start' | t }}</strong><span>{{ 'numan.quiz_start_note' | t }}</span></a></li><li><a href="{{ pages['bundle-builder'].url }}"><strong>{{ 'numan.quiz_products' | t }}</strong><span>{{ 'numan.quiz_products_note' | t }}</span></a></li><li><a href="{{ pages['bundle-builder'].url }}#bundle-summary"><strong>{{ 'numan.quiz_review' | t }}</strong><span>{{ 'numan.quiz_review_note_short' | t }}</span></a></li></ol><a class="n-discover" href="#b-shelf">{{ 'numan.explore_products' | t }} <span aria-hidden="true">↓</span></a>
+    </div>
+    <div class="n-hero-visual">
+      {% assign artwork = section.settings.artwork | default: images['numan-rose-water-v2.png'] %}
+      {% if artwork %}{{ artwork | image_url: width: 1600 | image_tag: class: 'n-rose-art', widths: '500,800,1200,1600', sizes: '(max-width: 700px) 100vw, 60vw', fetchpriority: 'high', loading: 'eager' }}{% endif %}
+      {% assign featured = section.settings.product %}
+      {% if featured %}<a class="n-hero-product" href="{{ featured.url }}">{% if featured.featured_image %}{{ featured.featured_image | image_url: width: 300 | image_tag: widths: '150,300', sizes: '105px', class: 'n-featured-image' }}{% endif %}<span><small>{{ 'numan.on_the_shelf' | t }}</small><strong>{{ featured.title | escape }}</strong><span>{{ featured.price | money }}</span></span><span aria-hidden="true">↗</span></a>{% endif %}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "NUMAN rose & water",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Build your"
+    },
+    {
+      "type": "text",
+      "id": "second_line",
+      "label": "Second line",
+      "default": "routine."
+    },
+    {
+      "type": "image_picker",
+      "id": "artwork",
+      "label": "Editorial artwork"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Featured product"
+    }
+  ],
+  "presets": [
+    {
+      "name": "NUMAN rose & water"
+    }
+  ]
+}
+{% endschema %}

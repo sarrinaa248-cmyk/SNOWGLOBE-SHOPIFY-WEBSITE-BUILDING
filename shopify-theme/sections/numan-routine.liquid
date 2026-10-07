@@ -1,0 +1,18 @@
+<section class="n-routine b-wrap">
+  <div class="n-routine-intro"><span class="b-eyebrow">{{ 'numan.start_here' | t }}</span><h2>{{ 'numan.routine_heading' | t }}</h2><p>{{ 'numan.routine_note' | t }}</p><div class="n-day-switch" role="group" aria-label="{{ 'numan.routine' | t }}"><button type="button" data-n-day="Morning" aria-pressed="true">{{ 'numan.morning' | t }}</button><button type="button" data-n-day="Evening" aria-pressed="false">{{ 'numan.evening' | t }}</button></div><a class="b-text-link" href="{{ pages['bundle-builder'].url }}">{{ 'numan.start_bundle' | t }} ↗</a></div>
+  <div class="n-step-display">
+  {% assign steps = 'cleanse,treat,moisturize' | split: ',' %}
+  {% for step in steps %}{% assign title_key = 'numan.' | append: step %}{% assign caption_key = title_key | append: '_caption' %}<a href="{{ pages['bundle-builder'].url }}?step={{ step }}&routine=Morning" data-n-step-link="{{ step }}" class="n-step-display-item"><span class="n-step-number" aria-hidden="true">0{{ forloop.index }}</span><span class="n-step-caption"><strong>{{ title_key | t }}</strong><small>{{ caption_key | t }}</small></span><span class="n-step-arrow" aria-hidden="true">↗</span></a>{% endfor %}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "NUMAN routine explorer",
+  "settings": [],
+  "presets": [
+    {
+      "name": "NUMAN routine explorer"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,16 @@
+{% doc %}
+Displays readable pack labels without changing supplier variants.
+@param {variant} variant - Product variant
+@param {product} item - Product
+{% enddoc %}
+{%- if item.id == 10327751196927 -%}
+{%- case variant.title -%}
+{%- when '30mlx1 piece' -%}{{ 'numan.bottle_one' | t }}
+{%- when '30mlx2 pieces' -%}{{ 'numan.bottle_two' | t }}
+{%- when '30mlx3 pieces' -%}{{ 'numan.bottle_three' | t }}
+{%- when '30mlx4 pieces' -%}{{ 'numan.bottle_four' | t }}
+{%- else -%}{{ variant.title }}
+{%- endcase -%}
+{%- elsif item.id == 10327750541567 and variant.title == 'A' -%}{{ 'numan.bottle_one' | t }}
+{%- else -%}{{ variant.title }}
+{%- endif -%}

@@ -1,0 +1,14 @@
+<section class="b-wrap b-content-page"><h1>{{ page.title | escape }}</h1><div class="rte">{% assign page_body = page.content %}{% if page.handle == 'about' or page.handle == 'faq' %}{% assign page_body = page_body | replace: 'skin quiz', 'quick quiz' %}{% endif %}{% if page.handle == 'faq' %}{% assign faq_answer = 'numan.quiz_faq_answer' | t %}{% assign page_body = page_body | replace: 'It helps you organize your preferences and choose a starting point. It does not diagnose skin conditions or verify that a particular product suits your skin.', faq_answer %}{% endif %}{{ page_body }}{% if page.handle == 'returns' %}<p><a href="{{ pages['contact'].url }}">{{ 'numan.returns_contact' | t }}</a></p>{% elsif page.handle == 'shipping' %}<p><a href="{{ pages['contact'].url }}">{{ 'numan.contact_before_buy' | t }}</a></p>{% endif %}</div>{% if section.settings.contact %}<p>{{ 'numan.contact_intro' | t }}</p>{% form 'contact' %}{{ form.errors | default_errors }}{% if form.posted_successfully? %}<p role="status">{{ 'bunchi.contact_sent' | t }}</p>{% else %}<label for="ContactName">{{ 'bunchi.name' | t }}</label><input id="ContactName" name="contact[name]" autocomplete="name" required><label for="ContactEmail">{{ 'bunchi.email' | t }}</label><input id="ContactEmail" type="email" name="contact[email]" autocomplete="email" required><label for="ContactBody">{{ 'bunchi.message' | t }}</label><textarea id="ContactBody" name="contact[body]" rows="6" required></textarea><button type="submit" class="b-button b-pear">{{ 'bunchi.send' | t }}</button>{% endif %}{% endform %}{% endif %}</section>
+{% schema %}
+{
+  "name": "NUMAN page",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "contact",
+      "label": "Show contact form",
+      "default": false
+    }
+  ]
+}
+{% endschema %}

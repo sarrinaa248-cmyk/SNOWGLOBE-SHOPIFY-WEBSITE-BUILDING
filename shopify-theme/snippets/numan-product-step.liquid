@@ -1,0 +1,28 @@
+{% doc %}
+  Returns a routine category from explicit tags or a recognizable product type.
+  @param {product} item - Product to classify
+{% enddoc %}
+{%- liquid
+  assign text = item.title | append: ' ' | append: item.type | downcase
+  if item.tags contains 'routine:cleanse'
+    echo 'cleanse'
+  elsif item.tags contains 'routine:protect'
+    echo 'protect'
+  elsif item.tags contains 'routine:moisturize'
+    echo 'moisturize'
+  elsif item.tags contains 'routine:treat'
+    echo 'treat'
+  elsif item.tags contains 'routine:other'
+    echo 'other'
+  elsif text contains 'cleanser'
+    echo 'cleanse'
+  elsif text contains 'sunscreen' or text contains 'spf'
+    echo 'protect'
+  elsif text contains 'moisturizer' or text contains 'moisturiser'
+    echo 'moisturize'
+  elsif text contains 'serum' or text contains 'toner'
+    echo 'treat'
+  else
+    echo 'other'
+  endif
+-%}

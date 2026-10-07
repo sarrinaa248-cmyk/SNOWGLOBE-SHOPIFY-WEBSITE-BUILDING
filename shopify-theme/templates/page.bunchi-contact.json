@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "bunchi-page",
+      "settings": {
+        "contact": true
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

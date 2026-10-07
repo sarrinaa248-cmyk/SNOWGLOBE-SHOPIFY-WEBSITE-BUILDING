@@ -1,0 +1,13 @@
+{
+  "type": "footer",
+  "name": "Footer",
+  "sections": {
+    "footer": {
+      "type": "bunchi-footer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

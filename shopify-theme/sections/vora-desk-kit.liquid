@@ -1,0 +1,374 @@
+{%- liquid
+  assign heading = section.settings.heading
+  assign subheading = section.settings.subheading
+-%}
+
+<section
+  id="VoraDeskKit-{{ section.id }}"
+  class="vora-desk"
+  style="
+    --vora-ink: {{ section.settings.ink }};
+    --vora-paper: {{ section.settings.paper }};
+    --vora-muted: {{ section.settings.muted }};
+    --vora-line: {{ section.settings.line }};
+    --vora-accent: {{ section.settings.accent }};
+  "
+>
+  <div class="vora-desk__intro">
+    <h2 class="vora-desk__heading">{{ heading }}</h2>
+    {%- if subheading != blank -%}
+      <p class="vora-desk__sub">{{ subheading }}</p>
+    {%- endif -%}
+  </div>
+
+  <ul class="vora-desk__grid" role="list">
+    {%- for block in section.blocks -%}
+      {%- assign product = block.settings.product -%}
+      <li class="vora-desk__item" {{ block.shopify_attributes }}>
+        {%- if product != blank -%}
+          <a class="vora-desk__link" href="{{ product.url }}">
+            <div class="vora-desk__media">
+              {%- if product.featured_media -%}
+                {{
+                  product.featured_media
+                  | image_url: width: 1200
+                  | image_tag:
+                    class: 'vora-desk__image',
+                    loading: 'lazy',
+                    sizes: '(min-width: 990px) 30vw, 90vw',
+                    widths: '400, 600, 800, 1000, 1200',
+                    alt: product.title
+                }}
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag: 'vora-desk__placeholder' }}
+              {%- endif -%}
+            </div>
+            <div class="vora-desk__copy">
+              <p class="vora-desk__rank">0{{ forloop.index }}</p>
+              <h3 class="vora-desk__title">
+                {%- if block.settings.custom_title != blank -%}
+                  {{ block.settings.custom_title }}
+                {%- else -%}
+                  {{ product.title }}
+                {%- endif -%}
+              </h3>
+              {%- if block.settings.hook != blank -%}
+                <p class="vora-desk__hook">{{ block.settings.hook }}</p>
+              {%- endif -%}
+              <p class="vora-desk__price">{{ product.price | money }}</p>
+            </div>
+          </a>
+        {%- else -%}
+          <div class="vora-desk__link vora-desk__link--empty">
+            <div class="vora-desk__media">
+              {{ 'product-1' | placeholder_svg_tag: 'vora-desk__placeholder' }}
+            </div>
+            <div class="vora-desk__copy">
+              <p class="vora-desk__rank">0{{ forloop.index }}</p>
+              <h3 class="vora-desk__title">
+                {%- if block.settings.custom_title != blank -%}
+                  {{ block.settings.custom_title }}
+                {%- else -%}
+                  Select a product in the theme editor
+                {%- endif -%}
+              </h3>
+              {%- if block.settings.hook != blank -%}
+                <p class="vora-desk__hook">{{ block.settings.hook }}</p>
+              {%- endif -%}
+              {%- if block.settings.fallback_price != blank -%}
+                <p class="vora-desk__price">{{ block.settings.fallback_price }}</p>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endif -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+</section>
+
+{% stylesheet %}
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Figtree:wght@400;500;600&display=swap');
+
+  .vora-desk {
+    position: relative;
+    padding: clamp(3.5rem, 8vw, 6.5rem) clamp(1.25rem, 5vw, 4.5rem);
+    color: var(--vora-ink);
+    background:
+      radial-gradient(ellipse 50% 40% at 100% 0%, rgba(46, 196, 182, 0.14), transparent 55%),
+      radial-gradient(ellipse 40% 35% at 0% 100%, rgba(255, 107, 44, 0.12), transparent 50%),
+      linear-gradient(180deg, #f4f7fb 0%, #e8eef8 100%);
+  }
+
+  .vora-desk__intro {
+    max-width: 40rem;
+    margin-bottom: clamp(2rem, 5vw, 3.25rem);
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .vora-desk__heading {
+    margin: 0;
+    font-family: Syne, sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.95rem, 4.2vw, 3.15rem);
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+  }
+
+  .vora-desk__sub {
+    margin: 0;
+    max-width: 40ch;
+    font-family: Figtree, sans-serif;
+    font-size: 1.05rem;
+    line-height: 1.45;
+    color: var(--vora-muted);
+  }
+
+  .vora-desk__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: clamp(1.5rem, 3vw, 2.25rem);
+  }
+
+  .vora-desk__link {
+    display: grid;
+    gap: 1rem;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .vora-desk__link--empty {
+    opacity: 0.72;
+  }
+
+  .vora-desk__media {
+    overflow: clip;
+    aspect-ratio: 4 / 5;
+    background: color-mix(in srgb, var(--vora-ink) 8%, white);
+    border: 2px solid color-mix(in srgb, var(--vora-ink) 12%, white);
+    box-shadow: 6px 6px 0 color-mix(in srgb, var(--vora-accent) 35%, transparent);
+  }
+
+  .vora-desk__image,
+  .vora-desk__placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 420ms ease;
+  }
+
+  .vora-desk__link:hover .vora-desk__image {
+    transform: scale(1.03);
+  }
+
+  .vora-desk__copy {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .vora-desk__rank {
+    margin: 0;
+    font-family: Figtree, sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--vora-accent);
+  }
+
+  .vora-desk__title {
+    margin: 0;
+    font-family: Syne, sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .vora-desk__hook {
+    margin: 0;
+    font-family: Figtree, sans-serif;
+    font-size: 0.98rem;
+    line-height: 1.4;
+    color: var(--vora-muted);
+  }
+
+  .vora-desk__price {
+    margin: 0.35rem 0 0;
+    font-family: Figtree, sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  @media (min-width: 900px) {
+    .vora-desk__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.75rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .vora-desk__image {
+      transition: none;
+    }
+
+    .vora-desk__link:hover .vora-desk__image {
+      transform: none;
+    }
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  (() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!('IntersectionObserver' in window)) return;
+    document.querySelectorAll('.vora-desk').forEach((section) => {
+      if (section.dataset.observed === 'true') return;
+      section.dataset.observed = 'true';
+      const items = section.querySelectorAll('.vora-desk__item');
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.animate(
+              [
+                { opacity: 0, transform: 'translateY(24px)' },
+                { opacity: 1, transform: 'translateY(0)' }
+              ],
+              {
+                duration: 560,
+                delay: Number(entry.target.dataset.index || 0) * 90,
+                easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+                fill: 'both'
+              }
+            );
+            observer.unobserve(entry.target);
+          });
+        },
+        { threshold: 0.2 }
+      );
+      items.forEach((item, index) => {
+        item.dataset.index = String(index);
+        observer.observe(item);
+      });
+    });
+  })();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Vora desk kit",
+  "tag": "section",
+  "class": "section-vora-desk",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Your move-in desk kit"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Supporting text",
+      "default": "Lamp. Sleeve. Lights. The fun setup students actually want — built for late nights and clean desks."
+    },
+    {
+      "type": "color",
+      "id": "ink",
+      "label": "Text color",
+      "default": "#071428"
+    },
+    {
+      "type": "color",
+      "id": "paper",
+      "label": "Surface",
+      "default": "#f4f7fb"
+    },
+    {
+      "type": "color",
+      "id": "muted",
+      "label": "Muted text",
+      "default": "#4a5568"
+    },
+    {
+      "type": "color",
+      "id": "line",
+      "label": "Line",
+      "default": "#d7dde8"
+    },
+    {
+      "type": "color",
+      "id": "accent",
+      "label": "Accent",
+      "default": "#ff6b2c"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "text",
+          "id": "custom_title",
+          "label": "Custom title",
+          "default": "LED desk lamp"
+        },
+        {
+          "type": "text",
+          "id": "hook",
+          "label": "Hook line",
+          "default": "Clean light plus wireless charging in one base."
+        },
+        {
+          "type": "text",
+          "id": "fallback_price",
+          "label": "Fallback price",
+          "default": "$49.99"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Vora desk kit",
+      "blocks": [
+        {
+          "type": "product",
+          "settings": {
+            "custom_title": "LED desk lamp",
+            "hook": "Clean desk before/after — phone snaps onto the wireless base.",
+            "fallback_price": "$49.99"
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "custom_title": "Laptop sleeve with stand",
+            "hook": "Sleeve unfolds into a laptop stand in two seconds.",
+            "fallback_price": "$44.99"
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "custom_title": "RGB LED strip kit",
+            "hook": "Dark room to full color — app control and music sync.",
+            "fallback_price": "$34.99"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

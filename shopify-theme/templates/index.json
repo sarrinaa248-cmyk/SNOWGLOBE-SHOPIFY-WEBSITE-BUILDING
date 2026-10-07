@@ -1,0 +1,52 @@
+{
+  "sections": {
+    "hero": {
+      "type": "bunchi-hero",
+      "settings": {
+        "heading": "Build a skincare routine",
+        "second_line": "made for you.",
+        "artwork": "shopify://shop_images/numan-rose-water-v2.png"
+      }
+    },
+    "shelf": {
+      "type": "bunchi-shelf",
+      "settings": {
+        "heading": "Serums to build around.",
+        "eyebrow": "The skincare edit",
+        "limit": 4,
+        "collection": "treat"
+      }
+    },
+    "details": {
+      "type": "numan-details",
+      "settings": {}
+    },
+    "rose_edit": {
+      "type": "numan-rose-edit",
+      "settings": {
+        "image": "shopify://shop_images/centella-rose-studio-v1.png"
+      }
+    },
+    "small_extras": {
+      "type": "numan-small-extras",
+      "settings": {}
+    },
+    "categories": {
+      "type": "numan-category-edit",
+      "settings": {}
+    },
+    "care": {
+      "type": "numan-customer-care",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "categories",
+    "shelf",
+    "rose_edit",
+    "details",
+    "small_extras",
+    "care"
+  ]
+}

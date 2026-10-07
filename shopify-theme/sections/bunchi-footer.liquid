@@ -1,0 +1,13 @@
+<footer class="b-footer b-wrap"><div class="b-footer-top"><a class="b-logo" href="{{ routes.root_url }}">{{ shop.name | escape }}</a><button type="button" class="b-motion" data-b-motion aria-pressed="false" data-pause="{{ 'bunchi.pause' | t }}" data-resume="{{ 'bunchi.resume' | t }}">{{ 'bunchi.pause' | t }}</button></div><div class="b-footer-grid"><nav aria-label="{{ 'bunchi.shop' | t }}"><h2>{{ 'bunchi.shop' | t }}</h2><a href="{{ routes.all_products_collection_url }}">{{ 'bunchi.all_products' | t }}</a><a href="{{ pages['bundle-builder'].url }}">{{ 'bunchi.builder' | t }}</a><a href="{{ pages['skin-quiz'].url }}">{{ 'bunchi.quiz' | t }}</a></nav><nav aria-label="{{ 'bunchi.care' | t }}"><h2>{{ 'bunchi.care' | t }}</h2>{% for key in section.settings.page_links.links %}<a href="{{ key.url }}">{{ key.title | escape }}</a>{% endfor %}{% if pages['contact'] != blank %}<a href="{{ pages['contact'].url }}">{{ 'bunchi.contact' | t }}</a>{% endif %}{% if pages['about'].content != blank %}<a href="{{ pages['about'].url }}">{{ pages['about'].title | escape }}</a>{% endif %}{% if pages['faq'].content != blank %}<a href="{{ pages['faq'].url }}">{{ 'bunchi.faq' | t }}</a>{% endif %}{% if shop.customer_accounts_enabled %}<a href="{{ routes.account_url }}">{{ 'bunchi.account' | t }}</a>{% endif %}</nav><nav aria-label="{{ 'bunchi.policies' | t }}"><h2>{{ 'bunchi.policies' | t }}</h2>{% for policy in shop.policies %}{% if policy.body != blank %}<a href="{{ policy.url }}">{{ policy.title | escape }}</a>{% endif %}{% endfor %}{% if pages['shipping'] != blank %}<a href="{{ pages['shipping'].url }}">{{ 'bunchi.shipping' | t }}</a>{% endif %}{% if pages['returns'] != blank %}<a href="{{ pages['returns'].url }}">{{ 'bunchi.returns' | t }}</a>{% endif %}{% if pages['data-sharing-opt-out'] != blank %}<a href="{{ pages['data-sharing-opt-out'].url }}">{{ pages['data-sharing-opt-out'].title | escape }}</a>{% endif %}</nav></div><div class="n-footer-wordmark" aria-hidden="true">{{ shop.name | escape }}</div><div class="b-footer-bottom"><small>© {{ 'now' | date: '%Y' }} {{ shop.name | escape }}</small><div class="b-payments">{% for type in shop.enabled_payment_types %}{{ type | payment_type_svg_tag }}{% endfor %}</div></div></footer>
+{% schema %}
+{
+  "name": "NUMAN footer",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "page_links",
+      "label": "Customer care menu"
+    }
+  ]
+}
+{% endschema %}

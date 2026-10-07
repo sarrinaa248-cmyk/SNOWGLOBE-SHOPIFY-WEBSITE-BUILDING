@@ -1,0 +1,126 @@
+<section
+  id="VoraTrust-{{ section.id }}"
+  class="vora-trust"
+  style="--vora-ink: {{ section.settings.ink }}; --vora-paper: {{ section.settings.paper }}; --vora-line: {{ section.settings.line }};"
+>
+  <ul class="vora-trust__list" role="list">
+    {%- for block in section.blocks -%}
+      <li class="vora-trust__item" {{ block.shopify_attributes }}>
+        <span class="vora-trust__mark" aria-hidden="true"></span>
+        <span class="vora-trust__text">{{ block.settings.text }}</span>
+      </li>
+    {%- endfor -%}
+  </ul>
+</section>
+
+{% stylesheet %}
+  .vora-trust {
+    padding: 0.95rem clamp(1.25rem, 5vw, 4.5rem);
+    color: var(--vora-ink);
+    background: var(--vora-paper);
+    border-top: 2px solid var(--vora-line);
+    border-bottom: 2px solid var(--vora-line);
+  }
+
+  .vora-trust__list {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    width: min(100%, 70rem);
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .vora-trust__item {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-family: Figtree, Helvetica, Arial, sans-serif;
+    font-size: 0.92rem;
+    font-weight: 700;
+  }
+
+  .vora-trust__mark {
+    width: 0.55rem;
+    height: 0.55rem;
+    flex: 0 0 auto;
+    background: #ff6b2c;
+    transform: rotate(45deg);
+  }
+
+  @media (min-width: 750px) {
+    .vora-trust__list {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.25rem;
+      justify-items: center;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Vora trust bar",
+  "tag": "section",
+  "class": "section-vora-trust",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "color",
+      "id": "ink",
+      "label": "Text",
+      "default": "#071428"
+    },
+    {
+      "type": "color",
+      "id": "paper",
+      "label": "Background",
+      "default": "#f4f7fb"
+    },
+    {
+      "type": "color",
+      "id": "line",
+      "label": "Border",
+      "default": "#d7dde8"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust_line",
+      "name": "Trust line",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Ships to the US"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vora trust bar",
+      "blocks": [
+        {
+          "type": "trust_line",
+          "settings": {
+            "text": "Ships to the US"
+          }
+        },
+        {
+          "type": "trust_line",
+          "settings": {
+            "text": "Easy returns"
+          }
+        },
+        {
+          "type": "trust_line",
+          "settings": {
+            "text": "Secure Shopify checkout"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

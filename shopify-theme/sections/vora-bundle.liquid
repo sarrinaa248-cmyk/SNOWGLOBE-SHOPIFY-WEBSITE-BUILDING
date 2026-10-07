@@ -1,0 +1,238 @@
+<section
+  id="VoraBundle-{{ section.id }}"
+  class="vora-bundle"
+  style="
+    --vora-ink: {{ section.settings.ink }};
+    --vora-paper: {{ section.settings.paper }};
+    --vora-accent: {{ section.settings.accent }};
+    --vora-pop: {{ section.settings.pop }};
+  "
+>
+  <div class="vora-bundle__inner">
+    <p class="vora-bundle__eyebrow">{{ section.settings.eyebrow }}</p>
+    <h2 class="vora-bundle__heading">{{ section.settings.heading }}</h2>
+    {%- if section.settings.subheading != blank -%}
+      <p class="vora-bundle__sub">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+    <div class="vora-bundle__price-row">
+      {%- if section.settings.compare_price != blank -%}
+        <span class="vora-bundle__compare">{{ section.settings.compare_price }}</span>
+      {%- endif -%}
+      <p class="vora-bundle__price">{{ section.settings.price_label }}</p>
+      {%- if section.settings.savings_label != blank -%}
+        <span class="vora-bundle__save">{{ section.settings.savings_label }}</span>
+      {%- endif -%}
+    </div>
+    {%- if section.settings.button_label != blank -%}
+      <a class="vora-bundle__cta" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Figtree:wght@400;500;600;700&display=swap');
+
+  .vora-bundle {
+    padding: clamp(3.75rem, 9vw, 7rem) clamp(1.25rem, 5vw, 4.5rem);
+    color: var(--vora-paper);
+    background:
+      radial-gradient(ellipse 70% 60% at 90% 15%, color-mix(in srgb, var(--vora-accent) 35%, transparent), transparent 55%),
+      radial-gradient(ellipse 50% 45% at 10% 80%, color-mix(in srgb, var(--vora-pop) 28%, transparent), transparent 50%),
+      linear-gradient(145deg, #071428 0%, #0a1f3d 55%, #122038 100%);
+  }
+
+  .vora-bundle__inner {
+    width: min(100%, 42rem);
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .vora-bundle__eyebrow {
+    margin: 0;
+    justify-self: start;
+    padding: 0.3rem 0.65rem;
+    font-family: Figtree, sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--vora-ink);
+    background: var(--vora-pop);
+    transform: rotate(-1deg);
+  }
+
+  .vora-bundle__heading {
+    margin: 0;
+    font-family: Syne, sans-serif;
+    font-weight: 800;
+    font-size: clamp(2.1rem, 5.2vw, 3.5rem);
+    letter-spacing: -0.035em;
+    line-height: 1.02;
+  }
+
+  .vora-bundle__sub {
+    margin: 0;
+    max-width: 40ch;
+    font-family: Figtree, sans-serif;
+    font-size: 1.05rem;
+    line-height: 1.45;
+    color: color-mix(in srgb, var(--vora-paper) 78%, transparent);
+  }
+
+  .vora-bundle__price-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.65rem 0.85rem;
+    margin-top: 0.25rem;
+  }
+
+  .vora-bundle__compare {
+    font-family: Figtree, sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-decoration: line-through;
+    color: color-mix(in srgb, var(--vora-paper) 55%, transparent);
+  }
+
+  .vora-bundle__price {
+    margin: 0;
+    font-family: Syne, sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.65rem, 3.2vw, 2.2rem);
+    letter-spacing: -0.02em;
+  }
+
+  .vora-bundle__save {
+    font-family: Figtree, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 0.25rem 0.55rem;
+    color: var(--vora-ink);
+    background: var(--vora-accent);
+  }
+
+  .vora-bundle__cta {
+    justify-self: start;
+    margin-top: 0.65rem;
+    display: inline-flex;
+    align-items: center;
+    min-height: 3.1rem;
+    padding: 0.9rem 1.4rem;
+    font-family: Figtree, sans-serif;
+    font-size: 0.98rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--vora-ink);
+    background: var(--vora-accent);
+    box-shadow: 4px 4px 0 var(--vora-pop);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .vora-bundle__cta:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--vora-pop);
+  }
+
+  .vora-bundle__cta:focus-visible {
+    outline: 2px solid var(--vora-paper);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .vora-bundle__cta {
+      transition: none;
+    }
+
+    .vora-bundle__cta:hover {
+      transform: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Vora bundle",
+  "tag": "section",
+  "class": "section-vora-bundle",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Best value · Dorm desk bundle"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "All three. One order."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Supporting text",
+      "default": "Lamp, sleeve stand, and RGB kit — everything for your dorm desk without hunting three different carts."
+    },
+    {
+      "type": "text",
+      "id": "compare_price",
+      "label": "Compare-at price",
+      "default": "$129.97",
+      "info": "Separate total if bought individually"
+    },
+    {
+      "type": "text",
+      "id": "price_label",
+      "label": "Bundle price",
+      "default": "$109.99"
+    },
+    {
+      "type": "text",
+      "id": "savings_label",
+      "label": "Savings label",
+      "default": "Save ~$20"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Get the full kit"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "ink",
+      "label": "Button text",
+      "default": "#071428"
+    },
+    {
+      "type": "color",
+      "id": "paper",
+      "label": "Text color",
+      "default": "#f4f7fb"
+    },
+    {
+      "type": "color",
+      "id": "accent",
+      "label": "Accent",
+      "default": "#ff6b2c"
+    },
+    {
+      "type": "color",
+      "id": "pop",
+      "label": "Pop accent",
+      "default": "#2ec4b6"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vora bundle"
+    }
+  ]
+}
+{% endschema %}

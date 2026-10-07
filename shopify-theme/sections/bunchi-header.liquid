@@ -1,0 +1,17 @@
+<header class="b-header">
+  <a class="b-logo" href="{{ routes.root_url }}">{{ shop.name | escape }}</a>
+  <nav class="b-nav" aria-label="{{ 'bunchi.navigation' | t }}"><details class="n-shop-menu" data-retail-panel><summary>{{ 'bunchi.shop' | t }} <span aria-hidden="true">⌄</span></summary><div class="n-shop-panel"><div><p>{{ 'numan.browse_categories' | t }}</p><a href="{{ routes.all_products_collection_url }}">{{ 'bunchi.all_products' | t }}</a>{% assign nav_categories = 'cleanse,treat,moisturize,extras' | split: ',' %}{% for handle in nav_categories %}{% assign group = collections[handle] %}{% if group.products_count > 0 %}<a href="{{ group.url }}">{{ group.title | escape }}</a>{% endif %}{% endfor %}</div><div><p>{{ 'numan.your_routine' | t }}</p><a href="{{ pages['bundle-builder'].url }}">{{ 'bunchi.builder' | t }}</a><a href="{{ pages['skin-quiz'].url }}">{{ 'bunchi.quiz' | t }}</a><a href="{{ pages['faq'].url }}">{{ 'bunchi.faq' | t }}</a></div></div></details><a href="{{ pages['skin-quiz'].url }}">{{ 'bunchi.quiz' | t }}</a><a href="{{ pages['bundle-builder'].url }}">{{ 'bunchi.builder' | t }}</a></nav>
+  <div class="b-utilities"><details class="n-search-menu" data-retail-panel><summary aria-label="{{ 'bunchi.search' | t }}"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></summary><div class="n-search-panel"><form action="{{ routes.search_url }}" method="get" role="search"><label for="RetailSearch-{{ section.id }}">{{ 'numan.search_products' | t }}</label><div><input id="RetailSearch-{{ section.id }}" name="q" type="search" required placeholder="{{ 'numan.search_hint' | t }}"><input type="hidden" name="type" value="product"><button class="b-button" type="submit">{{ 'bunchi.search' | t }}</button></div></form></div></details>{% if shop.customer_accounts_enabled %}<a class="b-account" href="{{ routes.account_url }}" aria-label="{{ 'bunchi.account' | t }}"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4 22v-3a8 8 0 0 1 16 0v3"/></svg></a>{% endif %}<a class="b-button b-bag" href="{{ routes.cart_url }}">{{ 'bunchi.bag' | t }} <span data-b-count>{{ cart.item_count }}</span></a><details class="b-menu" data-retail-panel><summary>{{ 'bunchi.menu' | t }}</summary><nav aria-label="{{ 'bunchi.navigation' | t }}"><a href="{{ routes.all_products_collection_url }}">{{ 'bunchi.shop' | t }}</a>{% assign nav_categories = 'cleanse,treat,moisturize,extras' | split: ',' %}{% for handle in nav_categories %}{% assign group = collections[handle] %}{% if group.products_count > 0 %}<a href="{{ group.url }}">{{ group.title | escape }}</a>{% endif %}{% endfor %}<a href="{{ pages['skin-quiz'].url }}">{{ 'bunchi.quiz' | t }}</a><a href="{{ pages['bundle-builder'].url }}">{{ 'bunchi.builder' | t }}</a>{% for link in section.settings.menu.links %}<a href="{{ link.url }}">{{ link.title | escape }}</a>{% endfor %}</nav></details></div>
+</header>
+{% schema %}
+{
+  "name": "NUMAN header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Additional menu"
+    }
+  ]
+}
+{% endschema %}

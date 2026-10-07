@@ -1,0 +1,15 @@
+<section class="n-quiz-invite"><div class="b-wrap n-quiz-inner">
+  <div class="n-quiz-preview"><span class="b-eyebrow">{{ 'numan.quiz_preview' | t }}</span><div class="n-preference-row"><span aria-hidden="true">01</span><strong>{{ 'numan.format' | t }}</strong><span aria-hidden="true">↗</span></div><div class="n-preference-row"><span aria-hidden="true">02</span><strong>{{ 'numan.routine' | t }}</strong><span aria-hidden="true">↗</span></div><div class="n-preference-row"><span aria-hidden="true">03</span><strong>{{ 'numan.budget' | t }}</strong><span aria-hidden="true">↗</span></div><span class="n-quiz-caption">{{ 'numan.five_questions' | t }}</span></div>
+  <div class="n-quiz-copy"><span class="b-eyebrow">{{ 'numan.take_a_moment' | t }}</span><h2>{{ 'numan.quiz_heading' | t }}</h2><p>{{ 'numan.quiz_intro' | t }}</p><a class="b-button b-pear" href="{{ pages['skin-quiz'].url }}">{{ 'numan.take_quiz' | t }} ↗</a><small>{{ 'numan.no_email' | t }}</small></div>
+</div></section>
+{% schema %}
+{
+  "name": "NUMAN quiz invitation",
+  "settings": [],
+  "presets": [
+    {
+      "name": "NUMAN quiz invitation"
+    }
+  ]
+}
+{% endschema %}

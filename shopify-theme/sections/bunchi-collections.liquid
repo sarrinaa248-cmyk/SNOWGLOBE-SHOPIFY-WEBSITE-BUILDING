@@ -1,0 +1,46 @@
+{% assign populated = false %}{% for block in section.blocks %}{% if block.settings.collection != blank %}{% assign populated = true %}{% endif %}{% endfor %}{% if populated or request.design_mode %}<section class="b-wrap b-collections"><div class="b-section-head"><h2>{{ section.settings.heading | escape }}</h2></div><div class="b-collection-grid">{% for block in section.blocks %}{% if block.settings.collection != blank %}<a class="b-collection" href="{{ block.settings.collection.url }}" {{ block.shopify_attributes }}>{% assign image = block.settings.image | default: block.settings.collection.featured_image %}{% if image %}{{ image | image_url: width: 900 | image_tag: loading: 'lazy' }}{% endif %}<h3>{{ block.settings.collection.title | escape }} ↗</h3></a>{% elsif request.design_mode %}<div class="b-editor-slot" {{ block.shopify_attributes }}>{{ 'bunchi.collection_slot' | t }}</div>{% endif %}{% endfor %}</div></section>{% endif %}
+{% schema %}
+{
+  "name": "NUMAN collections",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The collections."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "NUMAN collections",
+      "blocks": [
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

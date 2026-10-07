@@ -1,0 +1,11 @@
+<section class="b-wrap n-category-edit" aria-labelledby="CategoryHeading-{{ section.id }}">
+<div class="b-section-head"><div><span class="b-eyebrow">{{ 'numan.category_eyebrow' | t }}</span><h2 id="CategoryHeading-{{ section.id }}">{{ 'numan.category_heading' | t }}</h2></div><a class="b-text-link" href="{{ routes.all_products_collection_url }}">{{ 'bunchi.all_products' | t }} ↗</a></div>
+<div class="n-category-edit-grid">
+{% assign handles = 'cleanse,treat,moisturize,extras' | split: ',' %}
+{% for handle in handles %}{% assign group = section.settings[handle] | default: collections[handle] %}{% if group.products_count > 0 %}
+{% assign photo = group.image | default: group.products.first.featured_image %}{% if handle == 'treat' %}{% assign photo = images['bioaqua-rose-studio-v1.png'] | default: photo %}{% elsif handle == 'moisturize' %}{% assign photo = images['centella-rose-studio-v1.png'] | default: photo %}{% endif %}
+{% assign title_key = 'numan.category_' | append: handle %}{% assign note_key = title_key | append: '_note' %}
+<a class="n-category-tile" href="{{ group.url }}"><div class="n-category-tile-art">{% if photo %}{{ photo | image_url: width: 600 | image_tag: loading: 'lazy', widths: '240,400,600', sizes: '(max-width: 700px) 45vw, 23vw', alt: '' }}{% endif %}<span class="n-category-tile-arrow" aria-hidden="true">↗</span></div><h3>{{ title_key | t }}</h3><p>{{ note_key | t }}</p><span class="n-category-tile-link">{{ 'numan.category_browse' | t }}</span></a>
+{% endif %}{% endfor %}
+</div></section>
+{% schema %}{"name":"Shop by category","settings":[{"type":"collection","id":"cleanse","label":"Cleansers"},{"type":"collection","id":"treat","label":"Serums and essences"},{"type":"collection","id":"moisturize","label":"Moisturizers"},{"type":"collection","id":"extras","label":"Extras"}],"presets":[{"name":"Shop by category"}]}{% endschema %}

@@ -1,0 +1,4 @@
+<section class="n-small-extras b-wrap" aria-labelledby="Extras-{{ section.id }}"><div class="b-section-head"><div><span class="b-eyebrow">{{ 'numan.extras_eyebrow' | t }}</span><h2 id="Extras-{{ section.id }}">{{ 'numan.extras_heading' | t }}</h2></div><a class="b-text-link" href="{{ collections['extras'].url | default: routes.all_products_collection_url }}">{{ 'numan.extras_link' | t }} ↗</a></div><div class="n-extras-grid">{% assign extras = collections['extras'] %}{% for item in extras.products %}{% if item.type == 'Skincare Accessories' or item.type == 'Lip Gloss' %}{% render 'bunchi-card', item: item, context: section.id %}{% endif %}{% endfor %}</div></section>
+{% schema %}
+{"name":"Small extras","settings":[],"presets":[{"name":"Small extras"}]}
+{% endschema %}
